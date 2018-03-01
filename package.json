@@ -4,11 +4,12 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng build & node server",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "buildServe": "ng build | node server"
   },
   "private": true,
   "dependencies": {
@@ -21,8 +22,22 @@
     "@angular/platform-browser": "^5.2.0",
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
+    "@ng-bootstrap/ng-bootstrap": "^1.0.0",
+    "@types/underscore": "^1.8.7",
+    "angular-2-local-storage": "^1.0.1",
+    "angular-font-awesome": "^3.1.2",
+    "cookie-parser": "^1.4.3",
     "core-js": "^2.4.1",
+    "express": "^4.16.2",
+    "express-http-proxy": "^1.1.0",
+    "express-session": "^1.15.6",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.3.1",
+    "morgan": "^1.9.0",
+    "oauth": "^0.9.15",
+    "path": "^0.12.7",
     "rxjs": "^5.5.6",
+    "underscore": "^1.8.3",
     "zone.js": "^0.8.19"
   },
   "devDependencies": {

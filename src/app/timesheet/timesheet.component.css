@@ -1,0 +1,20 @@
+table {
+  max-width: 1400px ;
+}
+table
+thead th {
+  width: 100px ;
+}
+table
+thead th:first-child {
+  width: auto ;
+}
+table td {
+  text-align: center;
+}
+table td:first-child  {
+  text-align: left;
+}
+table input {
+  width: 30px ;
+}

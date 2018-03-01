@@ -1,0 +1,45 @@
+<h3>
+  timesheet {{currentWeekStart | date:'w'}}
+</h3>
+<div>
+<a (click)="previousWeek($event,item)"> Previous &lt; &lt; </a>
+   {{currentWeekStart | date: 'dd/MM/yyyy'}}
+ - <a (click)="thisWeek($event,item)" > Current Week </a> -
+   {{currentWeekEnd | date: 'dd/MM/yyyy'}}
+<a (click)="nextWeek($event,item)"> Next &gt; &gt; </a>
+
+</div>
+<table width="100%">
+  <thead>
+    <tr>
+      <th>
+          Issues
+      </th>
+      <th *ngFor="let label of labels" >
+        {{label}} {{ ( getLabelDay( label ) ) | date : 'dd/MM' }}
+      </th>
+    </tr>
+    <tr>
+        <th>
+            &nbsp;
+        </th>
+        <th *ngFor="let label of labels" >
+          {{ this.week[ this.datePipe.transform( getLabelDay( label ), 'dd-MM' ) ] }}
+        </th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let issue of issues">
+    <tr>
+      <td>
+        <a href="https://insynium.atlassian.net/browse/{{issue.key}}" target="_blank" >
+          {{issue.fields.project.key}} : {{issue.key }} - {{issue.fields.summary }}
+        </a>
+      </td>
+      <td *ngFor="let weekday of weekdays">
+        <span ng-if="getLog( issue, weekday ) > 0 ">
+          <input  value="{{ getLog( issue, weekday ) }}">
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>
