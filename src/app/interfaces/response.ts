@@ -1,66 +1,69 @@
-export interface assigneeRes {
 
+export interface ProgressRes {
+  progress?: number ;
+  total?: number ;
 }
-export interface progressRes {
-
+export interface ProjectRes {
+  name?: string ;
+  key?: string ;
+  self?: string ;
 }
-export interface projectRes {
-
+export interface StatusRes {
+  description?: string ;
+  iconUrl?: string ;
+  name?: string ;
 }
-export interface statusRes {
-
+export interface UserRes {
+  accountId?: string ;
+  active?: boolean ;
+  avatarUrls?: string[] ;
+  displayName?: string ;
+  emailAddress?: string ;
+  key?: string ;
+  name?: string ;
+  self?: string ;
+  timeZone?: string ;
 }
-export interface userRes {
-	accountId? : string,
-  active? : boolean,
-  avatarUrls? : string[],
-  displayName? : string,
-  emailAddress? : string,
-  key? : string,
-  name? : string,
-  self? : string,
-  timeZone? : string,
+export interface WorklogRes {
+  author?: UserRes ;
+  comment?: string ;
+  created?: string ;
+  id?: string ;
+  issueId?: string ;
+  self?: string ;
+  started?: string ;
+  startedDate?: Date ;
+  timeSpent?: string ;
+  timeSpentSeconds?: number ;
+  updateAuthor?: UserRes ;
+  updated: string ;
 }
-export interface worklogRes{
-  author? : userRes,
-  comment? : string,
-  created? : string,
-  id? : string,
-  issueId? : string,
-  self? : string,
-  started? : string,
-  startedDate? : Date,
-  timeSpent? : string,
-  timeSpentSeconds? : number,
-  updateAuthor? : userRes,
-  updated : string ;
+export interface WorklogsRes {
+  maxResults?: number ;
+  startAt?: number ;
+  total?: number ;
+  worklogs?: WorklogRes[] ;
 }
-export interface worklogsRes {
-  maxResults?: number,
-  startAt?: number,
-  total?: number,
-	worklogs? : worklogRes[],
+export interface FieldsRes {
+  assignee?: UserRes ;
+  progress?: ProgressRes ;
+  project?: ProjectRes ;
+  status?: StatusRes ;
+  summary?: string ;
+  timeoriginalestimate?: number ;
+  timespent?: number ;
+  worklog?: WorklogsRes ;
 }
-export interface fieldsRes {
-  assignee?: assigneeRes,
-  progress?: progressRes,
-  project?: projectRes,
-  status?: statusRes,
-  summary?: string,
-  timeoriginalestimate?: number,
-  timespent?: number,
-  worklog?: worklogsRes,
-}
-export interface issuesRes {
+export interface IssuesRes {
   expand?: string ;
-  fields?: fieldsRes ;
+  fields?: FieldsRes ;
   id?: string ;
   key?: string ;
   self?: string ; // url
 }
-export interface searchRes {
+export interface SearchRes {
   expand?: string ;
-  issues?: issuesRes[] ;
+  issues?: IssuesRes[] ;
   maxResults?: number ;
   startAt?: number ;
   total?: number ;

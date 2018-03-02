@@ -1,67 +1,66 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { LocationStrategy, HashLocationStrategy, DatePipe } from '@angular/common';
+
 import { AppComponent } from './app.component';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { NAV_DROPDOWN_DIRECTIVES } from './shared/nav-dropdown.directive';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
+// import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { SIDEBAR_TOGGLE_DIRECTIVES } from './shared/sidebar.directive';
+import { AsideToggleDirective } from './shared/aside.directive';
+import { BreadcrumbsComponent } from './shared/breadcrumb.component';
+
+// Routing Module
+import { AppRoutingModule } from './app.routing';
+
+
+import { FormsModule } from '@angular/forms';
+
+// Layouts
+import { FullLayoutComponent } from './layouts/full-layout.component';
+import { TimesheetComponent } from './timesheet/timesheet.component';
 import { JiraService } from './service/jira.service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Routes, RouterModule, ActivatedRoute } from '@angular/router';
+import { HttpClient, HttpClientModule } from '@angular/common/http' ;
 import { LocalStorageModule } from 'angular-2-local-storage';
+import { LoginComponent } from './login/login.component';
 
-import { DatePipe } from '@angular/common';
-
-import { JiraComponent } from './jira/jira.component';
-import { UserComponent } from './user/user.component';
-import { TimesheetComponent } from './timesheet/timesheet.component' ;
-
-
-//jira/callback?oauth_token=41dWZHvTe1nM4pei7uz3kleR6HBVOjVC&oauth_verifier=CCdkOK
-
-const appRoutes: Routes = [
-  {
-    path : 'jira/callback',
-    component :  JiraComponent
-  },
-  {
-    path : 'user',
-    component : UserComponent
-  },
-  {
-    path : 'timesheet',
-    component : TimesheetComponent,
-    data : {
-      'bla' : 1 ,
-      'sdfss' : 'sdfdfs',
-      'toto' : '3'
-    }
-  }
-  // {
-  //   path : 'jira/callback/:param',
-  //   component :  GetToken
-  // }
-] ;
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    JiraComponent,
-    UserComponent,
-    TimesheetComponent
-  ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
+    BsDropdownModule.forRoot(),
+    TabsModule.forRoot(),
+    AngularFontAwesomeModule,
+    FormsModule,
+    // ChartsModule,
     HttpClientModule,
-    RouterModule.forRoot( appRoutes ) ,
     LocalStorageModule.withConfig({
       prefix : 'jiraNG',
       storageType : 'localStorage',
     }),
-    // JiraService
+  ],
+  declarations: [
+    AppComponent,
+    FullLayoutComponent,
+    NAV_DROPDOWN_DIRECTIVES,
+    BreadcrumbsComponent,
+    SIDEBAR_TOGGLE_DIRECTIVES,
+    AsideToggleDirective,
+    TimesheetComponent,
+    LoginComponent
   ],
   providers: [
-    // HttpClient,
-    JiraService,
-    DatePipe
-  ],
-  bootstrap: [AppComponent]
+    {
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy,
+    },
+    DatePipe,
+    JiraService
+],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }

@@ -9,6 +9,16 @@
 <a (click)="nextWeek($event,item)"> Next &gt; &gt; </a>
 
 </div>
+<div class="dropdown " dropdown (onToggle)="toggled($event)" >
+  <a class="btn btn-secondary dropdown-toggle" dropdownToggle (click)="false"  >
+    {{selectedUser.displayName }}
+  </a>
+  <div class="dropdown-menu" >
+    <a *ngFor="let user of users" class="dropdown-item" (click)="selectUser( user )" >
+      {{user.displayName }}
+    </a>
+  </div>
+</div>
 <table width="100%">
   <thead>
     <tr>
