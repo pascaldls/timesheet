@@ -21,8 +21,8 @@ import * as _ from 'underscore/underscore';
 })
 export class TimesheetComponent implements OnInit {
 
-  selectedUser:UserRes  ;
-  users:UserRes[] = [] ;
+  selectedUser: UserRes  ;
+  users: UserRes[] = [] ;
 
   currentWeekStart: Date ;
   currentWeekEnd: Date ;
@@ -66,15 +66,18 @@ export class TimesheetComponent implements OnInit {
       if ( typeof issue.fields.worklog === 'undefined' )
         return false ;
       issue.fields.worklog.worklogs.forEach( ( log ) => {
-        if ( this.currentWeekStart < log.startedDate
-          && this.currentWeekEnd > log.startedDate
+        if ( this.currentWeekStart <= log.startedDate
+          && this.currentWeekEnd >= log.startedDate
           && this.selectedUser.name === log.author.name
          ) {
-            this.week[ this.datePipe.transform(  log.startedDate, 'dd-MM') ]
-                +=  Math.round( log.timeSpentSeconds / 60 / 60 ) ;
+          //  console.log( log.started ) ;
+            const dd = this.datePipe.transform(  log.startedDate, 'dd-MM') ;
+            const time = Math.round( log.timeSpentSeconds / 60 / 60 ) ;
+            this.week[ dd ] += time  ;
             ret = true ;
           }
       } );
+      // ret = true ;
       return ret ;
     }) ;
   }
@@ -85,22 +88,25 @@ export class TimesheetComponent implements OnInit {
     eDate.setDate( eDate.getDate() + 14 ) ;
     const endM =  this.datePipe.transform(  eDate, 'yyyy-MM-dd') ;
     const end = this.datePipe.transform(this.currentWeekEnd, 'yyyy-MM-dd') ;
-    this.jira.get(
+
+    const jql =  '( ( worklogDate>="' + start + '" and worklogDate<="' + endM + '") '
+    + 'or  ( resolutiondate>="' + start + '" and resolutiondate<="' + end + '" ) '
+    + 'or  ( status was "Fixing" DURING ( "' + start + '" ,"' + end + '") )  '
+    + 'or  ( status was "In Progress" DURING ( "' + start + '" ,"' + end + '") ) ) '
+    + 'and ( assignee =' + this.selectedUser.name + ' or worklogAuthor = ' + this.selectedUser.name + ' ) ' ;
+    const data = {
+      jql : jql,
+      startAt : 0,
+      maxResults : 9999,
+      fields : [ "assignee", "sprint", "summary", "status",
+        "project", "progress", "worklog", "timeoriginalestimate", "timespent" ]
+    } ;
+    console.log ( jql ) ;
+    this.jira.post(
       '2/search',
-      {
-        jql :
-               "( worklogDate>='" + start + "' and worklogDate<='" + endM + "') "
-          + "or ( resolutiondate>='" + start + "' and resolutiondate<='" + end + "' ) "
-          + "or ( status was 'Fixing' DURING ( '" + start + "' ,'" + end + "') )  "
-          + "or ( status was 'In Progress' DURING ( '" + start + "' ,'" + end + "') ) "
-          + "and ( assignee =" + this.selectedUser.name + " or worklogAuthor = " + this.selectedUser.name + " ) "
-          ,
-        startAt : 1,
-        maxResults : 9999,
-        fields : "assignee,sprint,summary,status,project,progress,worklog,timeoriginalestimate,timespent"
-      }
+      data // JSON.stringify( data )
     ).subscribe( ( res: SearchRes ) => {
-      console.log( res ) ;
+      // console.log( res ) ;
       res.issues.forEach( issue => {
         // if ( typeof issue.fields.worklog !== 'undefined' )
           issue.fields.worklog.worklogs.forEach( log => {
@@ -141,7 +147,12 @@ export class TimesheetComponent implements OnInit {
     }
   }
   setWeekStart() {
-    if ( this.currentWeekStart.getDay() > 1 ) {
+    this.currentWeekStart.setHours( 0 ) ;
+    if ( this.currentWeekStart.getDay() === 0  ) {
+      this.currentWeekStart.setDate(
+        this.currentWeekStart.getDate() - 6
+      ) ;
+    } else if ( this.currentWeekStart.getDay() > 1 ) {
       this.currentWeekStart.setDate(
         this.currentWeekStart.getDate() + ( - this.currentWeekStart.getDay() ) + 1
       ) ;
@@ -157,12 +168,13 @@ export class TimesheetComponent implements OnInit {
     this.get() ;
 
     this.week = {} ;
+    const day = new Date( this.currentWeekStart ) ;
     for (let i = 0; i < 7; i++) {
-      const day = new Date( this.currentWeekStart ) ;
-      day.setDate( day.getDate() + i )  ;
       const index = this.datePipe.transform(  day, 'dd-MM') ;
       this.week[ index ] = 0 ;
+      day.setDate( day.getDate() + 1 )  ;
     }
+    console.log( this.week ) ;
   }
   ngOnInit() {
   }

@@ -1,4 +1,4 @@
-import { Injectable }     from '@angular/core';
+import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -15,21 +15,30 @@ import { UserRes } from '../interfaces/response';
 @Injectable()
 export class JiraService implements CanActivate  {
   isLoggedIn = false;
-  token:string = '' ;
-  users:UserRes[] ;
-  activedUser:UserRes ;
+  token: string ;
+  users: UserRes[] ;
+  activedUser: UserRes ;
 
   // store the URL so we can redirect after logging in
   redirectUrl: string;
 
-  constructor( private http: HttpClient,
+  constructor(
+    private http: HttpClient,
     private localStore: LocalStorageService,
     private router: Router
     ) {
+      const activedUser: UserRes = localStore.get( 'activedUser' ) ;
+      if ( activedUser )
+        this.activedUser = activedUser ;
+
+      const users: UserRes[] = localStore.get( 'users' ) ;
+      if ( users )
+        this.users = users ;
+
   }
   canActivate( route: ActivatedRouteSnapshot, state: RouterStateSnapshot ) {
     console.log('AuthGuard#canActivate called');
-    let url: string = state.url;
+    const url: string = state.url;
 
     return this.checkLogin(url);
   }
@@ -47,17 +56,19 @@ export class JiraService implements CanActivate  {
     this.token = token ;
     this.get( '2/user/search?username=%' + domain )
       .subscribe(
-        ( users:UserRes[] ) => {
+        ( users: UserRes[] ) => {
           if ( users.length === 0 )
             return this.logout() ;
           this.users = users ;
           this.isLoggedIn = true ;
-          _.each( this.users, (user)=>{
-            if ( user.emailAddress === username ){
+          _.each( this.users, (user) => {
+            if ( user.emailAddress === username ) {
               this.activedUser = user ;
               // console.log( this.activedUser ) ;
             }
           });
+          this.localStore.set( 'activedUser', this.activedUser ) ;
+          this.localStore.set( 'users', this.users ) ;
           this.router.navigate([ ( ! this.redirectUrl || this.redirectUrl === 'login' ? '' : this.redirectUrl ) ]);
         },
         ( err ) => {
@@ -86,6 +97,15 @@ export class JiraService implements CanActivate  {
       {
         headers : this.getHeaders (),
         params : params ,
+      },
+    ) ;
+  }
+  post( path, params? ) {
+    if ( ! params ) params = {} ;
+    return this.http.post( "proxy/rest/api/" + path ,
+      params ,
+      {
+        headers : this.getHeaders (),
       },
     ) ;
   }

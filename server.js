@@ -31,12 +31,18 @@ app.use('/proxy',
     https: true,
     proxyReqOptDecorator: function(proxyReqOpts, srcReq) {
       // you can update headers
+      // console.log ( proxyReqOpts.headers ) ;
       proxyReqOpts.headers = srcReq.headers ;
+      proxyReqOpts.headers['user-agent'] = '' ;
       delete ( proxyReqOpts.headers['referer'] ) ;
       delete ( proxyReqOpts.headers['host'] ) ;
       return proxyReqOpts;
     },
-    parseReqBody: true
+    proxyReqBodyDecorator: function(bodyContent, srcReq) {
+      console.log( bodyContent ) ;
+      return bodyContent ;
+      // return bodyContent.split('').reverse().join('');
+    }
   })
 );
 

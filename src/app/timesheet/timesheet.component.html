@@ -19,13 +19,13 @@
     </a>
   </div>
 </div>
-<table width="100%">
+<table class="table table-striped" width="100%">
   <thead>
     <tr>
       <th>
           Issues
       </th>
-      <th *ngFor="let label of labels" >
+      <th class="text-center" *ngFor="let label of labels" >
         {{label}} {{ ( getLabelDay( label ) ) | date : 'dd/MM' }}
       </th>
     </tr>
@@ -38,8 +38,8 @@
         </th>
     </tr>
   </thead>
-  <tbody *ngFor="let issue of issues">
-    <tr>
+  <tbody>
+    <tr  *ngFor="let issue of issues">
       <td>
         <a href="https://insynium.atlassian.net/browse/{{issue.key}}" target="_blank" >
           {{issue.fields.project.key}} : {{issue.key }} - {{issue.fields.summary }}
@@ -47,7 +47,7 @@
       </td>
       <td *ngFor="let weekday of weekdays">
         <span ng-if="getLog( issue, weekday ) > 0 ">
-          <input  value="{{ getLog( issue, weekday ) }}">
+          {{ getLog( issue, weekday ) }}
         </span>
       </td>
     </tr>
