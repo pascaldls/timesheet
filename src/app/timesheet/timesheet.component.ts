@@ -65,7 +65,7 @@ export class TimesheetComponent implements OnInit {
       let ret: Boolean = false ;
       if ( typeof issue.fields.worklog === 'undefined' )
         return false ;
-      issue.fields.worklog.worklogs.forEach( ( log ) => {
+      _.each( issue.fields.worklog.worklogs, ( log ) => {
         if ( this.currentWeekStart <= log.startedDate
           && this.currentWeekEnd >= log.startedDate
           && this.selectedUser.name === log.author.name
@@ -76,10 +76,10 @@ export class TimesheetComponent implements OnInit {
             this.week[ dd ] += time  ;
             ret = true ;
           }
-      } );
+      }, this );
       // ret = true ;
       return ret ;
-    }) ;
+    }, this ) ;
   }
   get() {
     const start = this.datePipe.transform(this.currentWeekStart, 'yyyy-MM-dd') ;
@@ -127,12 +127,14 @@ export class TimesheetComponent implements OnInit {
     if ( typeof issue.fields.worklog === 'undefined' )
       return '' ;
     const logs = issue.fields.worklog.worklogs ;
-    let log ;
+    let log = 0 ;
     logs.forEach( l => {
       // console.log( l ) ;
       if ( this.datePipe.transform(  l.startedDate, 'yyyy-MM-dd')
-          === this.datePipe.transform( day, 'yyyy-MM-dd') ) {
-        log = Math.round( l.timeSpentSeconds / 60 / 60 ) ;
+          === this.datePipe.transform( day, 'yyyy-MM-dd')
+          && l.author.name === this.selectedUser.name
+        ) {
+        log += Math.round( l.timeSpentSeconds / 60 / 60 ) ;
         // console.log( log ) ;
       }
     });
@@ -174,7 +176,7 @@ export class TimesheetComponent implements OnInit {
       this.week[ index ] = 0 ;
       day.setDate( day.getDate() + 1 )  ;
     }
-    console.log( this.week ) ;
+    // console.log( this.week ) ;
   }
   ngOnInit() {
   }

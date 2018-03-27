@@ -26,6 +26,8 @@ import { JiraService } from './service/jira.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http' ;
 import { LocalStorageModule } from 'angular-2-local-storage';
 import { LoginComponent } from './login/login.component';
+import { TodoComponent } from './todo/todo.component';
+import { PouchDbService } from './service/pouch-db.service';
 
 
 @NgModule({
@@ -51,7 +53,8 @@ import { LoginComponent } from './login/login.component';
     SIDEBAR_TOGGLE_DIRECTIVES,
     AsideToggleDirective,
     TimesheetComponent,
-    LoginComponent
+    LoginComponent,
+    TodoComponent
   ],
   providers: [
     {
@@ -59,7 +62,8 @@ import { LoginComponent } from './login/login.component';
       useClass: HashLocationStrategy,
     },
     DatePipe,
-    JiraService
+    JiraService,
+    PouchDbService
 ],
   bootstrap: [ AppComponent ]
 })

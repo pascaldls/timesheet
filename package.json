@@ -37,6 +37,7 @@
     "ngx-bootstrap": "^2.0.2",
     "oauth": "^0.9.15",
     "path": "^0.12.7",
+    "pouchdb": "^6.4.3",
     "rxjs": "^5.5.6",
     "underscore": "^1.8.3",
     "zone.js": "^0.8.19"

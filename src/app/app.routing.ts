@@ -10,6 +10,7 @@ import 'rxjs/add/operator/map';
 import "rxjs/add/observable/of";
 import { JiraService } from './service/jira.service';
 import { LoginComponent } from './login/login.component';
+import { TodoComponent } from './todo/todo.component';
 
 export const routes: Routes = [
   {
@@ -36,6 +37,10 @@ export const routes: Routes = [
         path: 'timesheet',
         component : TimesheetComponent,
         canActivate: [JiraService],
+      },
+      {
+        path: 'todo',
+        component : TodoComponent,
       },
     ]
   }

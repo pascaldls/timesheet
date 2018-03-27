@@ -8,9 +8,9 @@ import { JiraService } from '../service/jira.service';
 })
 export class LoginComponent implements OnInit {
 
-  username:string = '' ;
-  password:string = '' ;
-  constructor( private jira:JiraService) { }
+  username: string ;
+  password: string ;
+  constructor( private jira: JiraService) { }
 
   ngOnInit() {
   }

@@ -1,0 +1,37 @@
+
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card-group mb-0">
+      <div class="card p-4">
+        <div class="card-body">
+          <h1> TODO </h1>
+          <p class="text-muted"> New TODO</p>
+          <div class="input-group mb-3">
+            <span class="input-group-addon"><fa name="user"></fa></span>
+            <input [(ngModel)]="this.todo" type="text" class="form-control" placeholder="todo">
+            <button type="button" (click)="this.add(event)" class="btn btn-primary ">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngFor="let row of rows" class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card-group mb-0">
+      <div class="card p-4">
+        <div class="card-body">
+          <div class="row">
+              <span class="col-md-2" (click)="check( row )" >
+                <span *ngIf="row.doc.completed">Check </span>
+                <span *ngIf="!row.doc.completed" > UnCheck </span>
+              </span>
+              <h3 class=" col-md-7"> {{row.doc.title}} </h3>
+              <span (click)="remove( row ) " class=" col-md-3">  remove   </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
