@@ -39,5 +39,9 @@ node server.js
 ## dev 
 
 ng build --watch
+ng build --w
 
 nodemon server.js --delay 2.5
+
+npm run pack 
+npm run packDev

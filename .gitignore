@@ -2,7 +2,7 @@
 
 # compiled output
 /dist
-/packaged/win-ia32-unpacked
+/docs/pack/win-ia32-unpacked
 
 # dependencies
 node_modules

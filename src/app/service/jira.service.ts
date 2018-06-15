@@ -35,6 +35,9 @@ export class JiraService implements CanActivate  {
       if ( users )
         this.users = users ;
 
+      this.token = this.localStore.get('token') ;
+      if ( this.token ) this.isLoggedIn = true ;
+
   }
   canActivate( route: ActivatedRouteSnapshot, state: RouterStateSnapshot ) {
     console.log('AuthGuard#canActivate called');
@@ -57,6 +60,7 @@ export class JiraService implements CanActivate  {
     this.get( '2/user/search?username=%' + domain )
       .subscribe(
         ( users: UserRes[] ) => {
+
           if ( users.length === 0 )
             return this.logout() ;
           this.users = users ;
@@ -67,11 +71,13 @@ export class JiraService implements CanActivate  {
               // console.log( this.activedUser ) ;
             }
           });
+          this.localStore.set( 'token', this.token);
           this.localStore.set( 'activedUser', this.activedUser ) ;
           this.localStore.set( 'users', this.users ) ;
           this.router.navigate([ ( ! this.redirectUrl || this.redirectUrl === 'login' ? '' : this.redirectUrl ) ]);
         },
         ( err ) => {
+          window.alert("Error Login");
           this.logout() ;
         }
       ) ;
