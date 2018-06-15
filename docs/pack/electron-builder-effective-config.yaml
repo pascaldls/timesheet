@@ -7,7 +7,6 @@ win:
 files:
   - '**/*'
   - '!e2e/*'
-  - '!node_modules'
   - '!packaged'
   - '!src'
   - '!server.js'

@@ -1,6 +1,6 @@
 {
   "name": "timeSheet",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "main": "main.js",
   "description": "TimeSheet Jira",
@@ -14,7 +14,8 @@
     "e2e": "ng e2e",
     "buildServe": "ng build | node server",
     "packDev": "build --dir --config.asar=false",
-    "pack": "build --config.asar=true  -p always",
+    "pack": "build ",
+    "packPub": "build --config.asar=true  -p always",
     "packSimple": "build --config.asar=false"
   },
   "author": {
@@ -32,7 +33,6 @@
     "files": [
       "**/*",
       "!e2e/*",
-      "!node_modules",
       "!packaged",
       "!src",
       "!server.js",
@@ -67,6 +67,7 @@
     "angular-font-awesome": "^3.1.2",
     "cookie-parser": "^1.4.3",
     "core-js": "^2.4.1",
+    "electron-updater": "^2.21.10",
     "express": "^4.16.2",
     "express-http-proxy": "^1.1.0",
     "express-session": "^1.15.6",
@@ -92,7 +93,6 @@
     "codelyzer": "^4.0.1",
     "electron": "2.0.0",
     "electron-builder": "20.8.1",
-    "electron-updater": "^2.21.10",
     "jasmine-core": "~2.8.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~2.0.0",
