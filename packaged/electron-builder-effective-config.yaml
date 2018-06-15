@@ -1,0 +1,27 @@
+directories:
+  output: packaged
+  buildResources: build
+appId: com.pascal.timesheet
+win:
+  icon: src/favicon.ico
+files:
+  - '**/*'
+  - '!e2e/*'
+  - '!node_modules'
+  - '!packaged'
+  - '!src'
+  - '!server.js'
+  - '!server/package.json'
+  - '!package.json'
+  - '!.angular-cli.json'
+  - '!editorconfig'
+  - '!debug.log'
+  - '!GruntFile.js'
+  - '!karma.conf.js'
+  - '!package.json'
+  - '!protractor.conf.js'
+  - '!README.md'
+  - '!tsconfig.json'
+  - '!tslint.json'
+asar: false
+electronVersion: 2.0.0
