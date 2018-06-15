@@ -41,7 +41,7 @@
   <tbody>
     <tr  *ngFor="let issue of issues">
       <td>
-        <a href="https://insynium.atlassian.net/browse/{{issue.key}}" target="_blank" >
+        <a href="https://insynium.atlassian.net/browse/{{issue.key}}" target="_blank" (click)=" openIssue( e, issue ) " >
           {{issue.fields.project.key}} : {{issue.key }} - {{issue.fields.summary }}
         </a>
       </td>

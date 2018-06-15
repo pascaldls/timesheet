@@ -29,6 +29,7 @@ import { LoginComponent } from './login/login.component';
 import { TodoComponent } from './todo/todo.component';
 import { PouchDbService } from './service/pouch-db.service';
 
+import { NgxElectronModule } from "ngx-electron";
 
 @NgModule({
   imports: [
@@ -41,9 +42,10 @@ import { PouchDbService } from './service/pouch-db.service';
     // ChartsModule,
     HttpClientModule,
     LocalStorageModule.withConfig({
-      prefix : 'jiraNG',
-      storageType : 'localStorage',
+      prefix: "jiraNG",
+      storageType: "localStorage"
     }),
+    NgxElectronModule,
   ],
   declarations: [
     AppComponent,
@@ -59,12 +61,12 @@ import { PouchDbService } from './service/pouch-db.service';
   providers: [
     {
       provide: LocationStrategy,
-      useClass: HashLocationStrategy,
+      useClass: HashLocationStrategy
     },
     DatePipe,
     JiraService,
     PouchDbService
-],
-  bootstrap: [ AppComponent ]
+  ],
+  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
