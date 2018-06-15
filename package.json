@@ -1,15 +1,54 @@
 {
-  "name": "jira-angular",
-  "version": "0.0.0",
+  "name": "TimeSheet",
+  "version": "1.0.0",
   "license": "MIT",
+  "main": "main.js",
+  "description": "TimeSheet Jira",
   "scripts": {
     "ng": "ng",
     "start": "ng build & node server",
     "build": "ng build --prod",
+    "buildDev": "ng build --dev  --watch ",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "buildServe": "ng build | node server"
+    "buildServe": "ng build | node server",
+    "packDev": "build --dir --config.asar=false",
+    "pack": "build ",
+    "packSimple": "build --config.asar=false"
+  },
+  "author": {
+    "email": "pascal.dls@gmail.com",
+    "name": "Pascal De laroche"
+  },
+  "build": {
+    "appId": "com.pascal.timesheet",
+    "win": {
+      "icon": "src/favicon.ico"
+    },
+    "directories": {
+      "output": "packaged"
+    },
+    "files": [
+      "**/*",
+      "!e2e/*",
+      "!node_modules",
+      "!packaged",
+      "!src",
+      "!server.js",
+      "!server/package.json",
+      "!package.json",
+      "!.angular-cli.json",
+      "!editorconfig",
+      "!debug.log",
+      "!GruntFile.js",
+      "!karma.conf.js",
+      "!package.json",
+      "!protractor.conf.js",
+      "!README.md",
+      "!tsconfig.json",
+      "!tslint.json"
+    ]
   },
   "private": true,
   "dependencies": {
@@ -35,6 +74,7 @@
     "jquery": "^3.3.1",
     "morgan": "^1.9.0",
     "ngx-bootstrap": "^2.0.2",
+    "ngx-electron": "^1.0.4",
     "oauth": "^0.9.15",
     "path": "^0.12.7",
     "pouchdb": "^6.4.3",
@@ -50,6 +90,8 @@
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "~6.0.60",
     "codelyzer": "^4.0.1",
+    "electron": "2.0.0",
+    "electron-builder": "20.8.1",
     "jasmine-core": "~2.8.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~2.0.0",

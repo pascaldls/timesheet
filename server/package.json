@@ -1,0 +1,25 @@
+{
+  "name": "TimeSheet Server",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": {
+    "email": "pascal.dls@gmail.com",
+    "name": "Pascal De laroche"
+  },
+  "scripts": {
+  },
+  "private": true,
+  "dependencies": {
+    "cookie-parser": "^1.4.3",
+    "core-js": "^2.4.1",
+    "express": "^4.16.2",
+    "express-http-proxy": "^1.1.0",
+    "express-session": "^1.15.6",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.3.1",
+    "morgan": "^1.9.0",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+  }
+}

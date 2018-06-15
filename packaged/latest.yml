@@ -1,0 +1,9 @@
+version: 1.0.0
+files:
+  - url: TimeSheet-Setup-1.0.0.exe
+    sha512: GQdSjIFfqH2WqsQ38ibSKoVa6ZjAenQ8f3TApZ38svTbbGuZo3ql1BglsnKAIF7xSfX8ndUULWpIQZUWolk7Pw==
+    size: 35643864
+path: TimeSheet-Setup-1.0.0.exe
+sha512: GQdSjIFfqH2WqsQ38ibSKoVa6ZjAenQ8f3TApZ38svTbbGuZo3ql1BglsnKAIF7xSfX8ndUULWpIQZUWolk7Pw==
+sha2: 5d755253d199a0caf78ed022091f447d4355c74aeaee9a10ce587e62921411e3
+releaseDate: '2018-05-15T07:02:06.571Z'

@@ -2,12 +2,10 @@
 
 # compiled output
 /dist
-/dist-server
-/tmp
-/out-tsc
+/packaged/win-ia32-unpacked
 
 # dependencies
-/node_modules
+node_modules
 
 # IDEs and editors
 /.idea
