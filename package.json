@@ -1,6 +1,6 @@
 {
   "name": "timeSheet",
-  "version": "1.0.2",
+  "version": "1.0.1",
   "license": "MIT",
   "main": "main.js",
   "description": "TimeSheet Jira",

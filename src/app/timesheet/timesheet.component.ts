@@ -93,30 +93,29 @@ export class TimesheetComponent implements OnInit {
     const end = this.datePipe.transform(this.currentWeekEnd, "yyyy-MM-dd");
 
     const jql =
-      '( ( worklogDate>="' +
-      start +
-      '" and worklogDate<="' +
-      endM +
+      '( ( worklogDate>="' + start +
+      '" and worklogDate<="' + endM +
       '") ' +
-      'or  ( resolutiondate>="' +
-      start +
-      '" and resolutiondate<="' +
-      end +
-      '" ) ' +
-      'or  ( status was "Fixing" DURING ( "' +
-      start +
-      '" ,"' +
-      end +
-      '") )  ' +
-      'or  ( status was "In Progress" DURING ( "' +
-      start +
-      '" ,"' +
-      end +
-      '") ) ) ' +
-      "and ( assignee =" +
-      this.selectedUser.name +
-      " or worklogAuthor = " +
-      this.selectedUser.name +
+      // 'or  ( resolutiondate>="' +
+      // start +
+      // '" and resolutiondate<="' +
+      // end +
+      // '" ) ' +
+      // 'or  ( status was "Fixing" DURING ( "' +
+      // start +
+      // '" ,"' +
+      // end +
+      // '") )  ' +
+      // 'or  ( status was "In Progress" DURING ( "' +
+      // start +
+      // '" ,"' +
+      // end +
+      // '") ) ' +
+      ")" +
+      "and ( " +
+      // "assignee =" +
+      // this.selectedUser.name +
+      "  worklogAuthor = " + this.selectedUser.name +
       " ) ";
     const data = {
       jql: jql,
